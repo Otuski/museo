@@ -22,9 +22,15 @@
         }
 
         public static function eventi(){
-            header("Location: /eventi/index"); //rimanda ad un'altro controller
+            header("Location: /eventi/eventiFuturi"); //rimanda ad un'altro controller
             die();
         }
+
+        public static function eventiFuturi(){
+            header("Location: /eventi/eventiFuturi"); //rimanda ad un'altro controller
+            die();
+        }
+
         public static function signin(){
             header("Location: /utente/signin"); //rimanda ad un'altro controller
             die();

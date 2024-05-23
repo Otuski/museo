@@ -4,7 +4,7 @@
     namespace app\config;
     class database {
         protected $conn;
-        protected \mysqli_stmt $statement;
+        protected $statement;
 
         
         public function __construct() {
