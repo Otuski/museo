@@ -1,8 +1,7 @@
 <?php  
-    //namespace app\controller\utente;
-    //use app\model\userModel;
-    
-    require_once "app/model/userModel.php";
+    namespace app\controller;
+    use app\model\userModel;
+
     class utente{ //controller
         
 
@@ -13,7 +12,7 @@
             die();
         }
 
-        public function dettagliEvento($idEvento){
+        public static function dettagliEvento($idEvento){
             //funzione che verra' richiamata se non e' specificata o e' sbagliato il nome della funzione
             header('Location: /eventi/dettagliEvento/'.$idEvento[0]);//rimanda alla homepage
             die();
@@ -21,19 +20,18 @@
         public static function login(){ //manda il forma
             session_start();
             require_once "app/view/utente/login.php";
-            $_SESSION["user"] -> login().' -> login <br>';
         }
 
-        public function logout(){ // manda alla homepage
+        public static function logout(){ // manda alla homepage
             session_start();
             session_destroy();
             header("Location: /utente/login");
             die();
         }
         
-        public function signin(){ //manda il forma
+        public static function signin(){ //manda il forma
             session_start();
-            require_once "app/template/utente/signin.php";
+            require_once "app/view/utente/signin.php";
         }
 
         
@@ -44,44 +42,48 @@
             */
             
             session_start();
-            if(isset($_SESSION["user"]) && $_SESSION["user"] -> login()){ //se il tipo e' loggato
-                $user = $_SESSION["user"];
-                require_once "app/template/utente/confermaRegistrazione.php";
+            $user = $_SESSION["user"];
+
+            if(is_array($user) && self::log($user["username"], $user["passw"])){ //se il tipo e' loggato
+                require_once "app/view/utente/confermaRegistrazione.php";
             }else{ //se non e' loggato manda alla pagina signin per verificare gli errori
                 header("Location: /utente/signin");
                 die();
             }
         }
-        public function profilo(){ //se' loggato manda a profilo se no a login
+        public static function profilo(){ //se' loggato manda a profilo se no a login
             session_start();
-            if(isset($_SESSION["user"]) && $_SESSION["user"] -> login()){ //se il tipo e' loggato mostra profilo
-                $user = $_SESSION["user"];
-                require_once "app/template/utente/profilo.php";
+            $user = $_SESSION["user"];
+
+            if(is_array($user) && self::log($user["username"], $user["passw"]) ){ //se il tipo e' loggato mostra profilo
+                require_once "app/view/utente/profilo.php";
             }else{ //se non e' loggato manda alla login
                 header("Location: /utente/login");
                 die();
             }
+            var_dump($user);
 
-            echo ''.var_dump($_SESSION["user"]);
         }
 
-        public function modificaProfilo(){ // se e' loggato manda alla form di modifica profilo
+        public static function modificaProfilo(){ // se e' loggato manda alla form di modifica profilo
             session_start();
-            if(isset($_SESSION["user"]) && $_SESSION["user"] -> login()){ //se il tipo e' loggato mostra form
-                $user = $_SESSION["user"];
-                require_once "app/template/utente/modificaProfilo.php";
-            }else{ //se non e' loggato manda alla pagina login per verificare gli errori
+            $user = $_SESSION["user"];
+
+            if(is_array($user) && self::log($user["username"], $user["passw"]) ){ //se il tipo e' loggato mostra profilo
+                require_once "app/view/utente/modificaProfilo.php";
+            }else{ //se non e' loggato manda alla login
                 header("Location: /utente/login");
                 die();
             }
         }
 
-        public function modificaPassword(){ // se e' loggato manda alla form di modifica password
+        public static function modificaPassword(){ // se e' loggato manda alla form di modifica password
             session_start();
-            if(isset($_SESSION["user"]) && $_SESSION["user"] -> login()){ //se il tipo e' loggato mostra form
-                $user = $_SESSION["user"];
-                require_once "app/template/utente/modificaPassword.php";
-            }else{ //se non e' loggato manda alla pagina login per verificare gli errori
+            $user = $_SESSION["user"];
+
+            if(is_array($user) && self::log($user["username"], $user["passw"]) ){ //se il tipo e' loggato mostra profilo
+                require_once "app/view/utente/modificaPassword.php";
+            }else{ //se non e' loggato manda alla login
                 header("Location: /utente/login");
                 die();
             }
@@ -92,33 +94,33 @@
             -> nel tmplate si visualizzeranno gli eventi grazie all'array eventi[]
             altrimanti manda alla login*/
             
-        public function iMieiBiglietti(){
-
+        public static function iMieiBiglietti(){
+             
             session_start();
-            if(isset($_SESSION["user"]) && $_SESSION["user"] -> login()){ //se il tipo e' loggato mostra form
+            $user = $_SESSION["user"];
+
+            if(is_array($user) && self::log($user["username"], $user["passw"]) ){//se il tipo e' loggato mostra form
                 $user = $_SESSION["user"];
-                $biglietti =  $user -> getBiglietti();
-                require_once "app/template/utente/iMieiBiglietti.php";
+                $biglietti =  userModel::getBigliettiByUtente($user["username"]);
+                require_once "app/view/utente/iMieiBiglietti.php";
             }else{ //se non e' loggato manda alla pagina login per verificare gli errori
                 header("Location: /utente/login");
-                //die();
+                die();
             }
         }
 
-
-
         //cambio di controller
-        public function homepage(){ //view dell'index
-            require_once "app/template/museo/homepage.php";
+        public static function homepage(){ //view dell'index
+            require_once "app/view/museo/homepage.php";
         }
 
-        public function aboutUs(){
-            require_once "app/template/museo/aboutUs.php";
+        public static function aboutUs(){
+            require_once "app/view/museo/aboutUs.php";
         }
 
         //cambio controller
 
-        public function eventi(){
+        public static function eventi(){
             header("Location: /eventi/index"); //rimanda ad un'altro controller
             die();
         }
@@ -135,39 +137,57 @@
          * guarda se l'utente esiste nel database
          * infine redirezziona alla pagina adeguata
          */
-        public function elaboraLogin(){
+        public static function elaboraLogin(){
 
+            session_start();
 
-            if(isset($_POST["username"]) && isset($_POST["password"])){
-
-                session_start();
-                $username = $_POST["username"];
-                $password = $_POST["password"];
-                $user = userModel::getUserByUsername($username);
-                if(is_string($user["passw"]) && password_verify($password,$user["passw")){
-                    $_SESSION["user"] = $user;
-                    header("Location: /eventi/index"); //redirect alla pagina di login con la form
-                    exit();
-                } else { //se valori errati rimanda alla login
-                    $_SESSION["error"] = "password errata";
-                    header("Location: /utente/login"); //redirect alla pagina di login con la form
-                    die();
-                }
-            } else {//se non ci sono stati i post inviati dal form  rimanda alla login
+            if( !(isset($_POST["username"]) && isset($_POST["password"])) ){//se non c'e una richiesta post: redirect -> login
                 $_SESSION["error"] = "no post";
                 header("Location: /utente/login"); //redirect alla pagina di login con la form
                 die();
             }
 
+            //salvo valori da confrontare in variabili
+            $username = $_POST["username"];
+            $password = $_POST["password"];
+            $user = userModel::getUserByUsername($username);
+
+
+            //se password giusta: redirect -> eventi
+            if(isset($user["passw"]) && password_verify($password, $user["passw"])){
+                $_SESSION["user"] = $user;
+                header("Location: /utente/profilo"); //redirect alla pagina di login con la form
+                die();
+            } else { //se valori errati rimanda alla login
+                $_SESSION["error"] = "dati errati";
+                header("Location: /utente/login"); //redirect alla pagina di login con la form
+                die();
+            }
+
+
         }
-        
+
+        /**
+         * il metodo log verifica se l'utente esiste nel database
+         * @param $username 
+         * @param $passw
+         * @return bool
+         */
+        private static function log($username, $passw){
+            $user = userModel::getUserByUsername($username);
+            if(is_string($username) && ( $passw == $user["passw"] )){
+                return true;
+            } else { //se valori errati rimanda alla login
+                return false;
+            }
+        }
         /** 
         * controlla se sono arrivati input post,
         * si prova a inserirli nel db,
         * se fallisce manda alla pagina di signin specificando l'errore,
         * altrimenti logga l'utente mandandolo agli eventi
         */
-        public function elaboraSignin(){
+        public static function elaboraSignin(){
             if( isset($_POST["username"],$_POST["nome"],$_POST["cognome"],$_POST["mail"],$_POST["mail"],$_POST["password"])){ //controllo se c'e' stata un vera richiesta per questa pagina
                 session_start();
                 $username = $_POST["username"];
@@ -178,13 +198,13 @@
                 $user = userModel::getUserByUsername($username);
 
                 //controlla se si puo' mettere e se lo fa lo logga
-                if(is_string($user["passw"])){
-                    $_SESSION["user"] = $userername;
-                    userModel::insertUtente($username,$nome,$cognome,$mail,$passw);
-                    header("Location: eventi/index"); //redirect alla pagina di login con la form
+                if(is_array($user)){
+                    $_SESSION["error"] = "username gia' in uso";
+                    header("Location: utente/profilo"); //redirect alla pagina di login con la form
                     die();
                 } else { //se valori errati rimanda alla login
-                    $_SESSION["error"] = "username gia' in uso";
+                    userModel::insertUtente($username,$nome,$cognome,$mail,$password);
+                    $_SESSION["user"] = userModel::getUserByUsername($username);
                     header("Location: utente/signin"); //redirect alla pagina di login con la form
                     die();
                 }
@@ -198,13 +218,15 @@
         *    cambio i dati  dell'utente, aggiorno pure l'user di sessione e mando alla pagina di profilo
         *    altrimenti mando a login
         */
-        public function elaboraModificaProfilo(){
-            
+        public static function elaboraModificaProfilo(){
             
             
             session_start();
+            $user = $_SESSION["user"];
 
-            if( isset($_POST["nome"],$_POST["cognome"],$_POST["mail"],$_SESSION["user"]))
+            if( is_array($user) 
+                && self::log($user["username"], $user["passw"]) 
+                && isset($_POST["nome"],$_POST["cognome"],$_POST["mail"],$_SESSION["user"]))
             {
                 $nome = $_POST["nome"];
                 $cognome = $_POST["cognome"];
@@ -214,7 +236,7 @@
 
                 userModel::updateDatiByUtente($user["username"], $nome, $cognome, $email); //modifica profilo
 
-                $_SESSION["user"]= $user;//aggiorno sessione
+                $_SESSION["user"]= userModel::getUserByUsername($user["username"]);;//aggiorno sessione
 
                 header("Location: /utente/profilo");
                 die();
@@ -231,30 +253,37 @@
          * cambio dell'utente i dati e mando alla pagina di profilo
          * altrimenti mando a login
         */
-        public function elaboraModificaPassword(){
+        public static function elaboraModificaPassword(){
             
             session_start();
+            $user = $_SESSION["user"];
 
-            if(isset($_SESSION["user"])){
-                $us = $_SESSION["user"];
-                $pas = $us["passw"];
+            if( is_array($user) 
+                && self::log($user["username"], $user["passw"]) 
+            )
+            {
+                $user = $_SESSION["user"];
+                $password = $user["passw"];
             }else{ //se non e' loggato manda alla pagina login per verificare gli errori
                 header("Location: /utente/login");
                 die();
             }
 
-            if( $_POST["password"]&&!password_verify($_POST["password"],$pas))
+            if( $_POST["password"] && !password_verify($_POST["password"],$password))
             {
             
             $password = $_POST["password"];
-            $user = $_SESSION["user"]
+            $user = $_SESSION["user"];
             userModel::updatePasswordByUtente($user["username"],$password); //modifica password
+
+            $_SESSION["user"]= userModel::getUserByUsername($user["username"]);;//aggiorno sessione
 
             header("Location: /utente/profilo");
             die();
 
 
             }else{ //se la password e' uguale
+                $_SESSION["error"]="inserisci una password diversa";
                 header("Location: /utente/modificaPassword");
                 die();
             }
