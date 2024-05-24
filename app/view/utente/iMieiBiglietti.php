@@ -24,7 +24,7 @@
 
         <h1>iMieiBiglietti</h1>
 
-        <p>Username: <?php echo $user -> username;?> </p>
+        <p>Username: <?php echo $user["username"];?> </p>
         <br>
 
         <?php 

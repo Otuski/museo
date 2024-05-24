@@ -26,7 +26,7 @@
 
         <?php
             if(isset($_SESSION['user'])){
-                echo 'errore: '.$_SESSION['user']-> error;
+                echo 'errore: '.$_SESSION['user']["error"];
             }
         ?>
 

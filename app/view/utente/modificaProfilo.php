@@ -24,7 +24,7 @@
 
         <h1>modificaProfilo</h1>
 
-        <h2> <?php echo $user -> username;?> </h2>
+        <h2> <?php echo $user["username"];?> </h2>
         
 
         <form action="elaboraModificaProfilo" method="post">

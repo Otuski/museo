@@ -24,16 +24,16 @@
 
         <h1>Profilo</h1>
 
-        <p>Username: <?php echo $user -> username;?> </p>
+        <p>Username: <?php echo $user["username"];?> </p>
         <br>
 
-        <p>Nome: <?php echo $user -> nome;?> </p>
+        <p>Nome: <?php echo $user["nome"];?> </p>
         <br>
 
-        <p>Cognome: <?php echo $user -> cognome;?> </p>
+        <p>Cognome: <?php echo $user["cognome"];?> </p>
         <br>
 
-        <p>Mail: <?php echo $user -> email;?> </p>
+        <p>Mail: <?php echo $user["email"];?> </p>
         <br>
 
         <a href="modificaProfilo">
