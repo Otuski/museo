@@ -14,11 +14,24 @@
 
         public static function dettagliEvento($idEvento){
             //funzione che verra' richiamata se non e' specificata o e' sbagliato il nome della funzione
+            session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
             header('Location: /eventi/dettagliEvento/'.$idEvento[0]);//rimanda alla homepage
             die();
         }
         public static function login(){ //manda il forma
             session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
             require_once "app/view/utente/login.php";
         }
 
@@ -31,6 +44,12 @@
         
         public static function signin(){ //manda il forma
             session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
             require_once "app/view/utente/signin.php";
         }
 
@@ -42,9 +61,11 @@
             */
             
             session_start();
+
             $user = $_SESSION["user"];
 
             if(is_array($user) && self::log($user["username"], $user["passw"])){ //se il tipo e' loggato
+                $logged = self::log($user["username"], $user["passw"]);
                 require_once "app/view/utente/confermaRegistrazione.php";
             }else{ //se non e' loggato manda alla pagina signin per verificare gli errori
                 header("Location: /utente/signin");
@@ -56,6 +77,7 @@
             $user = $_SESSION["user"];
 
             if(is_array($user) && self::log($user["username"], $user["passw"]) ){ //se il tipo e' loggato mostra profilo
+                $logged = self::log($user["username"], $user["passw"]);
                 require_once "app/view/utente/profilo.php";
             }else{ //se non e' loggato manda alla login
                 header("Location: /utente/login");
@@ -70,6 +92,7 @@
             $user = $_SESSION["user"];
 
             if(is_array($user) && self::log($user["username"], $user["passw"]) ){ //se il tipo e' loggato mostra profilo
+                $logged = self::log($user["username"], $user["passw"]);
                 require_once "app/view/utente/modificaProfilo.php";
             }else{ //se non e' loggato manda alla login
                 header("Location: /utente/login");
@@ -82,6 +105,7 @@
             $user = $_SESSION["user"];
 
             if(is_array($user) && self::log($user["username"], $user["passw"]) ){ //se il tipo e' loggato mostra profilo
+                $logged = self::log($user["username"], $user["passw"]);
                 require_once "app/view/utente/modificaPassword.php";
             }else{ //se non e' loggato manda alla login
                 header("Location: /utente/login");
@@ -102,6 +126,7 @@
             if(is_array($user) && self::log($user["username"], $user["passw"]) ){//se il tipo e' loggato mostra form
                 $user = $_SESSION["user"];
                 $biglietti =  userModel::getBigliettiByUtente($user["username"]);
+                $logged = self::log($user["username"], $user["passw"]);
                 require_once "app/view/utente/iMieiBiglietti.php";
             }else{ //se non e' loggato manda alla pagina login per verificare gli errori
                 header("Location: /utente/login");
@@ -111,11 +136,13 @@
 
         //cambio di controller
         public static function homepage(){ //view dell'index
-            require_once "app/view/museo/homepage.php";
+            header("Location: /museo/homepage"); //rimanda ad un'altro controller
+            die();
         }
 
         public static function aboutUs(){
-            require_once "app/view/museo/aboutUs.php";
+            header("Location: /museo/aboutUs"); //rimanda ad un'altro controller
+            die();
         }
 
         //cambio controller

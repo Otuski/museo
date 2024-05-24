@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Eventi Passati</title>
+    <title>Dettagli Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
       body{
@@ -18,14 +18,15 @@
       }
       h1{
         text-shadow: 2px 2px 8px black; 
-        font-size: 120px; 
+        font-size: 100px; 
       }
-      h3{
-        font-size:370%; 
-        text-shadow: 2px 2px 8px black;
+      h4{
+        font-size:200%;
+        text-shadow: 2px 2px 8px black; 
       }
       p{
         font-size: 20px; 
+        padding:2%;
       }
       a.nav-link{
         color:white;
@@ -67,7 +68,7 @@
         margin: 0% 10%; 
       }
       #bttn{
-        width:25%;
+        width:30%;
         font-size: 150%;
       }
       .card{
@@ -79,8 +80,8 @@
         background-color: rgba(140,121,109,255);
         border-color:rgba(140,121,109,255);
         color:white;
-        width:45%;
-        font-size: 120%;
+        width:30%;
+        font-size: 180%;
       }
       .btn-light:hover{
         background-color: white;
@@ -105,7 +106,7 @@
                 <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="homepage">Home</a>
+                      <a class="nav-link" href="../homepage">Home</a>
                     </li>
                     <li class="nav-item">
                       <hr class="divider">
@@ -113,20 +114,20 @@
                     <li class="nav-item">
                         <?php 
                             if(isset($logged) && $logged) {
-                                echo '<a class="nav-link" href="profilo">Profilo</a>';
+                                echo '<a class="nav-link" href="../profilo">Profilo</a>';
                             }else{
-                                echo '<a class="nav-link" href="login">Login</a>';
+                                echo '<a class="nav-link" href="../login">Login</a>';
                             }
                         ?>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="biglietti">Biglietti</a>
+                      <a class="nav-link" href="../biglietti">Biglietti</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="eventi">Eventi</a>
+                      <a class="nav-link" href="../eventi">Eventi</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="aboutUs">About Us</a>
+                      <a class="nav-link" href="../aboutUs">About Us</a>
                     </li>
                   </ul>
                 </div>
@@ -136,40 +137,46 @@
           <!-- fine navbar -->
 
           <div id="center">
-            <h1 class="text-center"><b>Eventi Passati</b></h1>
-            <div class="d-flex justify-content-end">
-              <a href="eventi" id="bttn" class="btn btn-outline-light btn-rounded">Eventi</a>
+            <?php
+            echo '<h1 class="text-center"><b>'. $evento["titolo"] .'</b></h1>';
+            ?>
+            <div class="row">
+              <div class="col d-flex justify-content-start">
+                <a href="eventi" id="bttn" class="btn btn-outline-light btn-rounded">Indietro</a>
+              </div>
+              <div class="col d-flex justify-content-end">
+                <?php
+                echo '<h3 class="text-center"><b>dal '. $evento['dataInizio'] .' al '.$evento['dataFine'].'</b></h3>';
+                ?>
+              </div>
             </div>
             <br>
-            <!-- card evento -->
             <?php
-            if ( count($eventi) > 0){
-              foreach ($eventi as $evento) {
-                echo '<div class="card" style="width: 100%;">';
-                echo '<div class="card-body">';
-                echo '<div class="row align-items-center">';
-                echo '<div class="col">';
-                echo '<h5 class="card-title" style="font-size:40px"><b>'. $evento['titolo'] .'</b></h5>';
-                echo '<p class="card-text" style="font-size:20px">dal '. $evento['dataInizio'] .' al '.$evento['dataFine'].'</p>';
-                echo '</div>';
-                echo '<div class="col d-flex justify-content-center">';
-                echo '<a href="dettagliEventoPassato/'.$evento['idVisita'].'" class="btn btn-light me-4">Dettagli</a>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-              }
-            }else{
-              echo '<h3 class="text-center"><b>Nessun evento disponibile!</b></h3>';
+            echo '<p class="text-center">';
+            echo '<h4><b>Descrizione</b></h4>';
+            echo '<p>'.$evento['descrizione'] .'</p><br>';
+            echo '<h4><b>Tariffa: €'.$evento['tariffa'] .'</b></h4><br>';
+            echo '<h4><b>Accessori</b></h4>';
+            
+            foreach ($accessori as $accessorio) {
+              echo '<p>'.$accessorio['descrizione'].' (Prezzo a persona: €'.$accessorio['prezzoAPersona'].' )</p><br>';
             }
+            echo '<br>';
 
+            echo '<h4><b>Categorie di biglietto</b></h4>';
+            foreach ($categorie as $categoria) {
+              echo '<p> - descrizione '.$categoria['descrizione'].'<br>';
+              echo ' - sconto: '.($categoria['sconto']*100).'%<br>';
+              echo ' - documento necessario '.$categoria['tipoDocumento'].'<br></p>'; 
+            }
+            echo '</p>';
             ?>
-            <!-- fine card evento -->
-            <br>
+            
           </div>
+          <!-- fine #center -->
 
-          <!-- footer -->
-          <footer class="footer mt-auto py-3" >
+         <!-- footer -->
+         <footer class="footer mt-auto py-3" >
             <!-- grid container -->
             <?php
                 if(isset($logged) && $logged){
@@ -207,56 +214,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
   </body>
-</html>
-
-<!-- <!DOCTYPE html>
-<html>
-    <head>
-        <title>eventiPassati</title>
-    </head>
-    <body>
-
-    <nav>
-            <a href="homepage"> Homepage</a>
-            <br> 
-            <a href="login">Login</a>
-            <br>
-            <a href="biglietti">biglietti</a>
-            <br>
-            <a href="profilo">Profilo</a>
-            <br>
-            <a href="eventi">Eventi</a>
-            <br>
-            <a href="aboutUs">About Us</a>
-            <br>
-        </nav>
-
-        <a href="eventiFuturi">
-            <button>eventiFuturi</button>
-        </a>
-
-
-        <?php
-            if ( count($eventi) > 0){
-                foreach ($eventi as $evento) {
-                    echo '<br>';
-                    echo '<div>';
-                    echo 'titolo: '. $evento['titolo'] .'<br>';
-                    echo 'descrizione: '. $evento['descrizione'] .'<br>';
-                    echo 'tariffa: '. $evento['tariffa'] .'$<br>';
-                    echo 'date: '. $evento['dataInizio'] .'  '.$evento['dataFine'].'<br>';
-                    echo '<a href = "dettagliEventoPassato/'.$evento['idVisita'].'">'.'<button>storico</button>'.'</a>';
-                    echo '</div>';
-
-                }
-            }else{
-                echo 'niente eventi';
-            } 
-
-            echo var_dump($eventi);
-        ?>
-
-
-
-    </body>
 </html>

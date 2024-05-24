@@ -157,7 +157,7 @@
                 return false;
             }
 
-            $result = $db -> getStatement() -> get_result() -> fetch_array(MYSQLI_ASSOC) ;
+            $result = $db -> getStatement() -> get_result() -> fetch_all(MYSQLI_ASSOC) ;
 
             if( (is_array($result)) && count($result) < 1){//se non trova la visita tramite l'id:
                 $db -> close();

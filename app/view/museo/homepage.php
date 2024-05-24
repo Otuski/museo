@@ -98,14 +98,14 @@
                     <li class="nav-item">
                     	<?php
                         	if(isset($logged) && $logged){
-                            	echo '<a class="nav-link" href="profilo">profilo</a>';
+                            	echo '<a class="nav-link" href="profilo">Profilo</a>';
                             }else{
                             	echo '<a class="nav-link" href="login">Login</a>';
                             }
                         ?>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="iMieiBiglietti">iMieiBiglietti</a>
+                      <a class="nav-link" href="iMieiBiglietti">I Miei Biglietti</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="eventiFuturi">Eventi</a>

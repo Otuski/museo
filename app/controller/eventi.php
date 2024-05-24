@@ -12,11 +12,25 @@
             die();
         }
         public static function eventiFuturi(){ 
+            session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
             $eventi = eventoModel::eventiFuturi();
             require_once "app/view/eventi/eventiFuturi.php";
         }
 
         public static function eventiPassati(){ 
+            session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
             $eventi = eventoModel::eventiPassati();
             require_once "app/view/eventi/eventiPassati.php";
         }
@@ -33,6 +47,12 @@
             $evento = eventoModel::getEventoById($id);
 
             session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
 
             if(strtotime($evento["dataInizio"]) > time() ){
                 $accessori = eventoModel::getAccessoriByEvento($id);
@@ -44,11 +64,19 @@
             }
         }
 
-        public function dettagliEventoPassato($params){ 
+        public static function dettagliEventoPassato($params){ 
 
             $id = $params[0];
 
             $evento = eventoModel::getEventoById($id);
+
+            session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
 
             if(strtotime($evento["dataInizio"]) < time() ){
                 $accessori = eventoModel::getAccessoriByEvento($id);
@@ -59,6 +87,13 @@
                 die();
             }
         }
+
+        /*
+        ordine delle pagine:
+        acquistaBiglietto 
+        pagamento -> riepilogo
+        inserisciCarta -> pagamento
+        */ 
 
         public function acquistaBiglietto(){// 
 
@@ -171,6 +206,7 @@
         //link vari
 
         public static function logout(){ // manda alla homepage
+            session_start();
             session_destroy();
             header("Location: /museo/homepage"); 
             die(); 

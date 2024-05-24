@@ -1,5 +1,6 @@
 <?php  
     namespace app\controller;
+    use app\model\userModel;
     class museo { //controller
 
         //qui la parte view
@@ -8,10 +9,24 @@
             die();
         }
         public static function homepage(){ //view dell'index
+            session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
             require_once "app/view/museo/homepage.php";
         }
 
         public static function aboutUs(){
+            session_start();
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+            }
             require_once "app/view/museo/aboutUs.php";
         }
 
@@ -51,5 +66,20 @@
         public static function iMieiBiglietti(){
             header("Location: /utente/iMieiBiglietti"); //rimanda ad un'altro controller
             die();
+        }
+
+        /**
+         * il metodo log verifica se l'utente esiste nel database
+         * @param $username 
+         * @param $passw
+         * @return bool
+         */
+        private static function log($username, $passw){
+            $user = userModel::getUserByUsername($username);
+            if(is_string($username) && ( $passw == $user["passw"] )){
+                return true;
+            } else { //se valori errati rimanda alla login
+                return false;
+            }
         }
     }

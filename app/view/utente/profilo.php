@@ -33,7 +33,7 @@
         <p>Cognome: <?php echo $user["cognome"];?> </p>
         <br>
 
-        <p>Mail: <?php echo $user["email"];?> </p>
+        <p>Mail: <?php echo $user["mail"];?> </p>
         <br>
 
         <a href="modificaProfilo">
