@@ -96,13 +96,15 @@
                       <hr class="divider">
                     </li>
                     <li class="nav-item">
-                    	<?php
-                        	if(isset($logged) && $logged){
-                            	echo '<a class="nav-link" href="profilo">Profilo</a>';
-                            }else{
-                            	echo '<a class="nav-link" href="login">Login</a>';
-                            }
-                        ?>
+                  	<?php
+                      if(isset($logged) && $logged){
+                          echo '<a class="nav-link" href="profilo">Profilo</a></li>';
+                          echo '<li class="nav-item">';
+                          echo '<a class="nav-link" href="iMieiBiglietti">I Miei Biglietti</a>';
+                        }else{
+                          echo '<a class="nav-link" href="login">Login</a>';
+                        }
+                    ?>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="iMieiBiglietti">I Miei Biglietti</a>
