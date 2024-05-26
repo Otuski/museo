@@ -13,8 +13,8 @@
 
         public static function getEventoById($id){
             $db = new database();
-            $db -> prepare("SELECT * FROM visita v
-                            WHERE v.idVisita = ?;");
+            $db -> prepare("SELECT * FROM VISITA v
+                            WHERE v.idVisita = ?");
             $db -> getStatement() -> bind_param("i", $id);
 
             if( !$db -> easyExecute()){//se non va la query manda via
@@ -146,9 +146,9 @@
         public static function getAccessoriByEvento($id){
 
             $db = new database();
-            $db -> prepare("SELECT s.codServizio, s.descrizione, s.prezzoAPersona FROM visita v
-                            INNER JOIN offerta o ON v.idVisita = o.idVisita
-                            INNER JOIN servizio s ON o.codServizio = s.codServizio 
+            $db -> prepare("SELECT s.codServizio, s.descrizione, s.prezzoAPersona FROM VISITA v
+                            INNER JOIN OFFERTA o ON v.idVisita = o.idVisita
+                            INNER JOIN SERVIZIO s ON o.codServizio = s.codServizio 
                             WHERE v.idVisita = ?");
             $db -> getStatement() -> bind_param("i", $id);
 
@@ -172,9 +172,9 @@
         public static function getCategorieByEvento($id){
 
             $db = new database();
-            $db -> prepare("SELECT ca.codCategoria, ca.descrizione, ca.sconto, ca.tipoDocumento FROM visita v
-            INNER JOIN variazione va ON v.idVisita = va.idVisita
-            INNER JOIN categoria ca ON va.codCategoria = ca.codCategoria            
+            $db -> prepare("SELECT ca.codCategoria, ca.descrizione, ca.sconto, ca.tipoDocumento FROM VISITA v
+            INNER JOIN VARIAZIONE va ON v.idVisita = va.idVisita
+            INNER JOIN CATEGORIA ca ON va.codCategoria = ca.codCategoria            
             WHERE v.idVisita = ?");
             $db -> getStatement() -> bind_param("i", $id);
 
