@@ -10,6 +10,15 @@
         font-family:Palatino;
         background: url("/app/view/museo/charismusBlur.jpg") no-repeat fixed;
       }
+      #container{
+        position: relative;
+      }
+      #content {
+        background: rgba(67, 58, 52, 0.9) repeat-y fixed;
+        min-height: 100vh; 
+        display: flex;
+        flex-direction: column;
+      }
       h1{
         text-shadow: 2px 2px 8px black; 
         font-size: 180px; 
@@ -48,9 +57,6 @@
         color: rgba(140,121,109,255);
         font-size: 18px;
         text-align: center;
-        position:absolute;
-        width:69%;
-        bottom:0;
       }
       .btn-outline-light{
         color: rgba(140,121,109,255);
@@ -72,62 +78,62 @@
       }
     </style>
   </head>
-  <body class="text-light">
-    <div class="container text-center"> 
+  <body class="text-light d-flex flex-column min-vh-100">
+    <div id="container" class="container text-center"> 
       <div class="row">
         <div class="col"></div>
-        <div class="col-10" style="background:rgba(67,58,52,0.9) repeat-y fixed; min-height: 100vh;">
+        <div class="col-10" id="content" style="background:rgba(67,58,52,0.9) repeat-y fixed; min-height: 100vh;">
           <!-- navbar -->
-          <nav class="navbar ">
-            <div class="container-fluid">
-              <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon "></span>
-              </button>
-              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" id="current" href="homepage">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <hr class="divider">
-                    </li>
-                    <li class="nav-item">
-                    	<?php
-                        	if(isset($logged) && $logged){
-                            	echo '<a class="nav-link" href="profilo">Profilo</a>';
-                            }else{
-                            	echo '<a class="nav-link" href="login">Login</a>';
-                            }
-                        ?>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="iMieiBiglietti">I Miei Biglietti</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="eventiFuturi">Eventi</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="aboutUs">About Us</a>
-                    </li>
-                  </ul>
-                </div>
+<nav class="navbar ">
+          <div class="container-fluid">
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+              <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" id="current" href="homepage">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <hr class="divider">
+                  </li>
+                  <li class="nav-item">
+                  	<?php
+                      	if(isset($logged) && $logged){
+                          	echo '<a class="nav-link" href="profilo">Profilo</a></li>';
+					                  echo '<li class="nav-item">';
+							              echo '<a class="nav-link" href="iMieiBiglietti">I Miei Biglietti</a>';
+                          }else{
+                          	echo '<a class="nav-link" href="login">Login</a>';
+                          }
+                      ?>
+                      </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="eventiFuturi">Eventi</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="aboutUs">About Us</a>
+                  </li>
+                </ul>
               </div>
             </div>
-          </nav>
-          <!-- fine navbar -->
+          </div>
+        </nav>
+        <!-- fine navbar -->
+
           <div id="center">
             <h1 class="text-center"><b>CARISMUS</b></h1>
             <h2 class="text-center"><b>Il museo del Carisma</b></h2>
           </div>
-          <section class="">
-            <!-- footer -->
-            <footer class="footer mt-auto py-3" >
-              <!-- grid container -->
-              <?php
+
+           <!-- footer -->
+          <footer class="footer mt-auto py-3" >
+            <!-- grid container -->
+            <?php
                         	if(isset($logged) && $logged){
                             	
                               echo '<div class="container p-4 pb-0">
@@ -146,15 +152,13 @@
                             
                             }
               ?>
-              
-              <!-- grid container -->
-              <hr class="divider">
-              <div class="text-center p-3">
-                © 2024 Copyright: Girasole Arancio
-              </div>
-            </footer>
-            <!-- fine footer -->
-          </section>
+            <!-- grid container -->
+            <hr class="divider">
+            <div class="text-center p-3">
+              © 2024 Copyright: Girasole Arancio
+            </div>
+          </footer>
+          <!-- fine footer -->
 
         </div><!-- fine div centrale-->
         <div class="col"></div>
