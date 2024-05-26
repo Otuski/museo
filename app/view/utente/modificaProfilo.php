@@ -1,54 +1,187 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>modificaProfilo</title>
-    </head>
-    <body>
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modifica profilo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+      body{
+        font-family:Palatino;
+        background: url("/app/view/museo/charismusBlur.jpg") no-repeat fixed;
+      }
+      #container{
+        position: relative;
+      }
+      #content {
+        background: rgba(67, 58, 52, 0.9) repeat-y fixed;
+        min-height: 100vh; 
+      }
+      h1{
+        text-shadow: 2px 2px 8px black; 
+        font-size: 90px; 
+      }
+      p{
+        font-size: 20px; 
+        color: rgba(140,121,109,255);
+      }
+      a.nav-link{
+        color:white;
+        text-decoration:none;
+        font-size: 30px;
+      }
+      a.nav-link:hover{
+        color:rgba(67,58,52,255);
+      }
+      a.nav-link#current{
+        color:rgba(67,58,52,255);
+        font-size: 40px;
+      }
+      .offcanvas {
+        background-color: rgba(140,121,109,255);
+      }
+      .custom-toggler.navbar-toggler{
+        border-color: rgba(0,0,0,0);
+      }
+      .custom-toggler .navbar-toggler-icon{
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(140,121,109,255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        font-size:40px;
+      }
+      footer{
+        color: rgba(140,121,109,255);
+        font-size: 18px;
+        text-align: center;
+      }
+      .btn-outline-light{
+        color: rgba(140,121,109,255);
+        border-color: rgba(140,121,109,255);
+      }
+      .btn-outline-light:hover{
+        color: white;
+        border-color: rgba(140,121,109,255);
+        background-color: rgba(140,121,109,255);
+      }
+      #center{
+        margin: 0% 10%;  
+        padding:10% 0%;
+        justify-content: center; /* Center content vertically */
+      }
+      #bttn{
+        width:17%;
+        font-size: 160%;
+        margin-top: 5%;
+        margin-left: 5%;
+      }
+      .card{
+        background-color:rgba(67,58,52,255);
+        border-color:rgba(140,121,109,255);
+        color:white;
+      }
+      .btn-light{
+        background-color: rgba(140,121,109,255);
+        border-color:rgba(140,121,109,255);
+        color:white;
+        width:30%;
+        font-size: 180%;
+      }
+      .btn-light:hover{
+        background-color: white;
+      }
+      h4{
+        font-size:150%;
+      }
+      .col-form-label{
+        font-size:190%;
+      }
+      .form-check-input {
+        width: 1.5em;
+        height: 1.5em;
+      }
+      label{
+        display: flex; 
+        justify-content: flex-end;
+      }
+      #field{
+        width: 60%;
+        display: inline-block;
+        float: left;
+      }
+      #link{
+        color: rgba(140,121,109,255);
+        font-size: 130%;
+        text-align: center;
+        text-decoration:none;
+      }
+      #link:hover{
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="text-light d-flex flex-column min-vh-100">
+    <div id="container" class="container text-center"> 
+      <div class="row">
+        <div class="col"></div>
+        <div id="content" class="col-10">
+          <div class="col d-flex justify-content-start">
+            <a href="profilo" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>
+          </div>
 
-        <nav>
-            <a href="homepage"> Homepage</a>
-            <br> 
-            <a href="login">Login</a>
+          <div id="center">
+            <h1 class="text-center"><b>Modifica profilo</b></h1>
             <br>
-            <a href="iMieiBiglietti">bigiMieiBigliettilietti</a>
+            <form action="elaboraModificaProfilo" method="POST">
+              <!-- card 01 -->
+              <div class="card" style="width: 100%;">
+                <div class="card-body align-items-center text-center">
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="username" class="col-form-label mb-0">Username:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="text" id="field" name="username" placeholder="<?php echo $user["username"];?>" required><br>
+                    </div>
+                  </div><!-- fine row username -->
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="nome" class="col-form-label mb-0">Nome:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="text" id="field" name="nome" placeholder="<?php echo $user["nome"];?>" required><br>
+                    </div>
+                  </div><!-- fine row nome -->
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="cognome" class="col-form-label mb-0">Cognome:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="text" id="field" name="cognome" placeholder="<?php echo $user["cognome"];?>" required><br>
+                    </div>
+                  </div><!-- fine row cognome -->
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="mail" class="col-form-label mb-0">Email:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="mail" id="field" name="mail" placeholder="<?php echo $user["mail"];?>" required><br>
+                    </div>
+                  </div><!-- fine row email -->
+
+                </div><!-- fine card-body -->
+              </div><!-- fine card 01 -->
+
+              <br>
+              <input class="btn btn-light btn-lg" type="submit" value="Conferma">
+            </form>
             <br>
-            <a href="profilo">Profilo</a>
-            <br>
-            <a href="eventi">Eventi</a>
-            <br>
-            <a href="aboutUs">About Us</a>
-            <br>
-        </nav>
+          </div><!-- fine #center -->
 
-        <br>
-
-        <h1>modificaProfilo</h1>
-
-        <h2> <?php echo $user["username"];?> </h2>
-        
-
-        <form action="elaboraModificaProfilo" method="post">
+        </div><!-- fine div centrale-->
+        <div class="col"></div>
+      </div><!-- fine row -->
 
 
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" placeholder="nome" required minlength="8">
-
-            <br>
-
-            <label for="cognome">Cognome:</label>
-            <input type="text" id="cognome" name="cognome" placeholder="cognome" required minlength="8">
-
-            <br>
-            
-            <label for="mail">Mail:</label>
-            <input type="mail" id="mail" name="mail" placeholder="mail@exemple.com" required minlength="8">
-
-            <br>
-
-            <input type="submit">
-
-        </form>
-        
-
-    </body>
+    </div><!-- fine container -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+  </body>
 </html>
