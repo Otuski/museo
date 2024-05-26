@@ -142,7 +142,7 @@
             ?>
             <div class="row">
               <div class="col d-flex justify-content-start">
-                <a href="eventi" id="bttn" class="btn btn-outline-light btn-rounded">Indietro</a>
+                <a href="../eventi" id="bttn" class="btn btn-outline-light btn-rounded">Indietro</a>
               </div>
               <div class="col d-flex justify-content-end">
                 <?php

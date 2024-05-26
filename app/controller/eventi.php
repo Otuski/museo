@@ -1,11 +1,25 @@
 <?php  
     namespace app\controller;
     use app\model\eventoModel;
+    use app\model\userModel;
 
     class eventi { //controller
-        
-        
 
+        /**
+         * il metodo log verifica se l'utente esiste nel database
+         * @param $username 
+         * @param $passw
+         * @return bool
+         */
+        private static function log($username, $passw){
+            $user = userModel::getUserByUsername($username);
+            if(is_string($username) && ( $passw == $user["passw"] )){
+                return true;
+            } else { //se valori errati rimanda alla login
+                return false;
+            }
+        }
+        
         //  qui ci sono tutte le view
         public static function index(){//funzione che verra' richiamata se non e' specificata o e' sbagliato il nome della funzione
             header('Location: /eventi/eventiFuturi');//rimanda agli eventi futuri
@@ -95,7 +109,7 @@
         inserisciCarta -> pagamento
         */ 
 
-        public function acquistaBiglietto(){// 
+        public static function acquistaBiglietto($params){// 
 
             /*
             controlla se l'utente e' loggato e 
@@ -105,19 +119,18 @@
             session_start();
             var_dump(isset($_SESSION["evento"]));
 
-            $id = $_POST["idEvento"];
+            $id = $params[0];
             
-            $evento = $_SESSION["evento"];
-            $user = $_SESSION["user"]; 
-            var_dump($evento);
+            
+            $user = $_SESSION["user"];
             var_dump($user);
             echo "dsfggrergerwggegerafgsergherasg";
-            if(isset($_SESSION["user"]) && $_SESSION["user"]->login() && isset($_SESSION["evento"])){ //se il tipo e' loggato
+            if(is_array($_SESSION["user"]) && self::log($user['username'],$user['passw'])){ //se il tipo e' loggato
                 $user = $_SESSION["user"];
-                $evento = $_SESSION['evento']['evento'];
-                $accessori = $_SESSION['evento']['accessori'];
-                $categorie = $_SESSION['evento']['categorie'];
-                require_once "app/template/eventi/acquistaBiglietto.php";
+                $evento = eventoModel::getEventoById( $id );
+                $accessori = eventoModel::getAccessoriByEvento($id);
+                $categorie = eventoModel::getCategorieByEvento($id);
+                require_once "app/view/eventi/acquistaBiglietto.php";
             }else{ //se non e' loggato manda alla pagina signin per verificare gli errori
                 header("Location: /utente/login");
                 die();
