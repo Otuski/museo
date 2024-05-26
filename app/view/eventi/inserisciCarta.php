@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Acquisto Biglietti</title>
+    <title>Inserisci carta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
       body{
@@ -84,24 +84,28 @@
         background-color: white;
       }
       h4{
-        font-size:160%;
+        font-size:150%;
       }
-      .col-form-label, .form-check-label{
-        font-size:120%;
-      }
-      #quantity{
-        width:20%;
+      .col-form-label{
+        font-size:190%;
       }
       .form-check-input {
         width: 1.5em;
         height: 1.5em;
       }
-      #data{
-        width:15%;
-        position: relative;
-        top: 50%;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
+      label{
+        display: flex; 
+        justify-content: flex-end;
+      }
+      #field{
+        width: 60%;
+        display: inline-block;
+        float: left;
+      }
+      #fieldSPECIAL{
+        width: 30%;
+        display: inline-block;
+        float: left;
       }
     </style>
   </head>
@@ -115,83 +119,58 @@
           </div>
 
           <div id="center">
-            <h1 class="text-center"><b>Prenota la tua visita</b></h1>
-
-            <?php
-		        echo '<h5 style="font-size:200%"><b>'.$evento['titolo'].'</b></h5><br>';   
-                if(isset($_SESSION['error'])){
-                    echo ''.$_SESSION['error'].'';
-                }else{
-                    unset($_SESSION['error']);
-                }
-            ?>
-
-            <form action="../elaboraAcquistaBiglietto" method="POST">
-
-              <!-- card 00 -->
+            <h1 class="text-center"><b>Pagamento</b></h1>
+            <br>
+            <form action="#" method="POST">
+              <!-- card 01 -->
               <div class="card" style="width: 100%;">
-                <div class="card-body">
-                  <h5 class="card-title" style="font-size:250%"><b>Data:</b></h5>
+                <div class="card-body align-items-center text-center">
+                  <h5 class="card-title" style="font-size:250%"><b>Inserisci i dati della carta</b></h5>
                   <br>
-                  <input type="date" id="data" name="dataBiglietto">
-                </div>
-              </div>
-              <!-- fine card 00 -->
-              <br>
-                <!-- card 01 -->
-              <div class="card" style="width: 100%;">
-                <div class="card-body">
-                  <h5 class="card-title" style="font-size:250%"><b>Tipologia biglietti:</b></h5>
-                  <?php
-                  foreach ($categorie as $categoria) {
-                    echo '<hr>';
-                    echo '<div class="row d-flex align-items-center">';
-                    echo '<div class="col">';
-                    echo '<h4 class="text-center">'.$categoria['descrizione'].'</h4>';
-                    echo '</div>';
-                    echo '<div class="col">';
-                    echo '<label for="categoria/'.$categoria['codCategoria'].'" class="col-form-label mb-0" style="font-size:160%">€ '.$evento['tariffa']-($evento['tariffa']*$categoria['sconto']).'</label>';
-                    echo '<input class="ms-5" type="number" id="quantity" name="categoria/'.$categoria['codCategoria'].'" min="0" max="10"">';
-                    echo '</div>';
-                    echo '</div><!-- fine row -->';
-                    echo 'Documento necessario: '.$categoria['tipoDocumento'].'<br>';
-                    echo '<br>';
-	            }
-                  ?>
-                </div><!-- card body -->
-              </div>
-              <!-- fine card 01 -->
-              <br>
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="nome" class="col-form-label mb-0">Nome:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="textfield" id="field" name="nome"><br>
+                    </div>
+                  </div><!-- fine row nome -->
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="cognome" class="col-form-label mb-0">Cognome:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="textfield" id="field" name="cognome"><br>
+                    </div>
+                  </div><!-- fine row cognome -->
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="numCarta" class="col-form-label mb-0">Numero di carta:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="tel" id="field" name="numCarta" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx"><br>
+                    </div>
+                  </div><!-- fine row numCarta -->
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="dataScadenza" class="col-form-label mb-0">Data di scadenza:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" type="month" id="fieldSPECIAL" name="dataScadenza"><br>
+                    </div>
+                  </div><!-- fine row scadenza -->   
+                  <div class="row d-flex align-items-center">
+                    <div class="col">
+                      <label for="cvv" class="col-form-label mb-0">CVV:</label>
+                    </div>
+                    <div class="col">
+                      <input class="ms-5" id="fieldSPECIAL" type="number" max="999" pattern="([0-9]|[0-9]|[0-9])" name="cvv"/>
+                    </div>
+                  </div><!-- fine row cvv -->
+                </div><!-- fine card-body -->
+              </div><!-- fine card 01 -->
 
-              <!-- card 02 -->
-              <div class="card" style="width: 100%;">
-                <div class="card-body">
-                  <h5 class="card-title" style="font-size:250%"><b>Accessori:</b></h5>
-                  <?php
-                    foreach ($accessori as $accessorio) {
-                        echo '<hr>';
-                        echo '<div class="row d-flex align-items-center">';
-                        echo '<div class="col">';
-                        echo '<h4 class="text-center">'.$accessorio['descrizione'].'</h4>';
-                        echo '</div>';
-                        echo '<div class="col">';
-                        echo '<label class="form-check-label mb-0 me-5" for="flexCheckDefault">€ '.$accessorio['prezzoAPersona'].'</label>';
-                        echo '<input class="form-check-input ms-5" type="checkbox" id="flexCheckDefault" name="accessorio/'.$accessorio['codServizio'].'">';
-                        echo '</div>';
-                        echo '</div><!-- fine row -->';
-                        echo '<br>';
-                    }
-                    ?>   
-                </div><!-- card body -->
-              </div>
-              <!-- fine card 02 -->
               <br>
-
-                
-            <?php
-                echo '<input type="hidden" name="idVisita" value='.$evento['idVisita'].'>';      
-            ?>
-
               <input class="btn btn-light btn-lg" type="submit" value="Checkout">
             </form>
           </div><!-- fine #center -->
@@ -205,6 +184,7 @@
             </div>
           </footer>
           <!-- fine footer -->
+
 
         </div><!-- fine div centrale-->
         <div class="col"></div>
