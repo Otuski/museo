@@ -94,24 +94,24 @@
         <div class="col"></div>
         <div id="content" class="col-10">
           <!-- navbar -->
-          <nav class="navbar ">
-            <div class="container-fluid">
-              <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon "></span>
-              </button>
-              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                      <a class="nav-link" href="../homepage">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <hr class="divider">
-                    </li>
-                    <li class="nav-item">
+<nav class="navbar ">
+          <div class="container-fluid">
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+              <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link" href="homepage">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <hr class="divider">
+                  </li>
+                  <li class="nav-item">
                   	<?php
                       	if(isset($logged) && $logged){
                           	echo '<a class="nav-link" href="profilo">Profilo</a></li>';
@@ -122,21 +122,18 @@
                           }
                       ?>
                       </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../biglietti">Biglietti</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../eventi">Eventi</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="../aboutUs">About Us</a>
-                    </li>
-                  </ul>
-                </div>
+                  <li class="nav-item">
+                    <a class="nav-link" href="eventiFuturi">Eventi</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="aboutUs">About Us</a>
+                  </li>
+                </ul>
               </div>
             </div>
-          </nav>
-          <!-- fine navbar -->
+          </div>
+        </nav>
+        <!-- fine navbar -->
 
           <div id="center">
             <?php
@@ -144,7 +141,7 @@
             ?>
             <div class="row">
               <div class="col d-flex justify-content-start">
-                <a href="../eventi" id="bttn" class="btn btn-outline-light btn-rounded">Indietro</a>
+                <a href="../eventiPassati" id="bttn" class="btn btn-outline-light btn-rounded">Indietro</a>
               </div>
               <div class="col d-flex justify-content-end">
                 <?php
@@ -161,15 +158,16 @@
             echo '<h4><b>Accessori</b></h4>';
             
             foreach ($accessori as $accessorio) {
-              echo '<p>'.$accessorio['descrizione'].' (Prezzo a persona: €'.$accessorio['prezzoAPersona'].' )</p><br>';
+              echo '<p>'.$accessorio['descrizione'].' (Prezzo a persona: €'.$accessorio['prezzoAPersona'].' )</p>';
             }
             echo '<br>';
 
             echo '<h4><b>Categorie di biglietto</b></h4>';
             foreach ($categorie as $categoria) {
-              echo '<p> - descrizione '.$categoria['descrizione'].'<br>';
-              echo ' - sconto: '.($categoria['sconto']*100).'%<br>';
-              echo ' - documento necessario '.$categoria['tipoDocumento'].'<br></p>'; 
+              echo '<p>'.$categoria['descrizione'].'<br>';
+              echo 'Sconto: '.($categoria['sconto']*100).'%<br>';
+              echo 'Documento necessario '.$categoria['tipoDocumento'].'<br>'; 
+              echo '</p>';
             }
             echo '</p>';
             ?>

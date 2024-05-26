@@ -109,70 +109,45 @@
           <div id="center">
             <h1 class="text-center"><b>Riepilogo</b></h1>
             <br>
-            <!-- card 01 -->
+            <!-- card biglietti -->
             <div class="card" style="width: 100%;">
               <div class="card-body">
                 <h5 class="card-title" style="font-size:250%"><b>Biglietti:</b></h5>
-                <br>
-                <div class="row justify-content-center align-items-center">
-                  <div class="col text-center">
-                    <h4>Biglietto €XX.XX x 2</h4>
-                  </div>
-                  <div class="col text-center">
-                    <h6 class="ms-5">€ XX.XX</h6>
-                  </div>
-                </div><!-- fine row 1 -->
-                <br>
-                <div class="row justify-content-center align-items-center">
-                  <div class="col text-center">
-                    <h4>Biglietto €XX.XX x 2</h4>
-                  </div>
-                  <div class="col text-center">
-                    <h6 class="ms-5">€ XX.XX</h6>
-                  </div>
-                </div><!-- fine row 2 -->
-                <br>
-                <div class="row justify-content-center align-items-center">
-                  <div class="col text-center">
-                    <h4>Biglietto €XX.XX x 2</h4>
-                  </div>
-                  <div class="col text-center">
-                    <h6 class="ms-5">€ XX.XX</h6>
-                  </div>
-                </div><!-- fine row 3 -->
-                <br>
+                <?php
+                  echo '<div class="row justify-content-center align-items-center">';
+                  echo '<div class="col text-center">';
+                  echo '<h4>Biglietto, €XX.XX x 2</h4>';
+                  echo '</div>';
+                  echo '<div class="col text-center">';
+                  echo '<h6 class="ms-5">€ XX.XX</h6>';
+                  echo '</div>';
+                  echo '</div><!-- fine row -->';
+                  echo '<br>';
+                ?>
               </div>
             </div>
-            <!-- fine card 01 -->
+            <!-- fine card biglietti -->
             <br>
-            <!-- card 02 -->
+            <!-- card servizi -->
             <div class="card" style="width: 100%;">
               <div class="card-body">
                 <h5 class="card-title" style="font-size:250%"><b>Accessori:</b></h5>
-                <br>
-                <div class="row justify-content-center align-items-center">
-                  <div class="col text-center">
-                    <h4>Accessorio €XX.XX x 2</h4>
-                  </div>
-                  <div class="col text-center">
-                    <h6 class="ms-5">€ XX.XX</h6>
-                  </div>
-                </div><!-- fine row 1 -->
-                <br>
-                <div class="row justify-content-center align-items-center">
-                  <div class="col text-center">
-                    <h4>Accessorio €XX.XX x 2</h4>
-                  </div>
-                  <div class="col text-center">
-                    <h6 class="ms-5">€ XX.XX</h6>
-                  </div>
-                </div><!-- fine row 2 -->
-                <br>
+                <?php
+                  echo '<div class="row justify-content-center align-items-center">';
+                  echo '<div class="col text-center">';
+                  echo '<h4>Accessorio, €XX.XX x 2</h4>';
+                  echo '</div>';
+                  echo '<div class="col text-center">';
+                  echo '<h6 class="ms-5">€ XX.XX</h6>';
+                  echo '</div>';
+                  echo '</div><!-- fine row -->';
+                  echo '<br>';
+                ?>
               </div>
             </div>
-            <!-- fine card 02 -->
+            <!-- fine card servizi  -->
             <br>
-            <!-- card 02 -->
+            <!-- card totale -->
             <div class="card" style="width: 100%;">
               <div class="card-body">
               <div class="row">
@@ -180,12 +155,12 @@
                     <h5 class="card-title" style="font-size:270%"><b>Totale:</b></h5>
                   </div>
                   <div class="col text-center d-flex align-items-center">
-                    <h6 style="margin: 0 auto; width:70%; font-size:190%">€ XX.XX</h6>
+                    <h6 style="margin: 0 auto; width:70%; font-size:190%"><?php echo '€ XX.XX'; ?><'/h6>
                   </div>
                 </div><!-- fine row -->
               </div>
             </div>
-            <!-- fine card 02 -->
+            <!-- fine card totale -->
             <br><br>
             <a href="#" class="btn btn-light btn-lg">Checkout</a>
 

@@ -93,24 +93,24 @@
         <div class="col"></div>
         <div id="content" class="col-10">
           <!-- navbar -->
-          <nav class="navbar ">
-            <div class="container-fluid">
-              <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <span class="navbar-toggler-icon "></span>
-              </button>
-              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                      <a class="nav-link" href="homepage">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <hr class="divider">
-                    </li>
-                    <li class="nav-item">
+<nav class="navbar ">
+          <div class="container-fluid">
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+              <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link" href="homepage">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <hr class="divider">
+                  </li>
+                  <li class="nav-item">
                   	<?php
                       	if(isset($logged) && $logged){
                           	echo '<a class="nav-link" href="profilo">Profilo</a></li>';
@@ -121,21 +121,18 @@
                           }
                       ?>
                       </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="biglietti">Biglietti</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" id="current" href="eventi">Eventi</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="aboutUs">About Us</a>
-                    </li>
-                  </ul>
-                </div>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" id="current" href="eventiFuturi">Eventi</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="aboutUs">About Us</a>
+                  </li>
+                </ul>
               </div>
             </div>
-          </nav>
-          <!-- fine navbar -->
+          </div>
+        </nav>
+        <!-- fine navbar -->
 
           <div id="center">
             <h1 class="text-center"><b>Eventi</b></h1>
