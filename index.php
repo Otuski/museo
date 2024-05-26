@@ -1,7 +1,7 @@
 <?php
-    require_once "app\config\autoloader.php"; //importo il file per fare l'autoloading grazie ai namespace
-    require_once "app\config\db_config.php";
-    require_once "app\config\database.php";
+    require_once "app/config/autoloader.php"; //importo il file per fare l'autoloading grazie ai namespace
+    require_once "app/config/db_config.php";
+    require_once "app/config/database.php";
     //require_once "app\controller\dispatcher\dispatcher.php";
 
     use app\controller\dispatcher;
