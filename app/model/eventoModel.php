@@ -13,7 +13,7 @@
 
         public static function getEventoById($id){
             $db = new database();
-            $db -> prepare("SELECT * FROM visita v
+            $db -> prepare("SELECT * FROM VISITA v
                             WHERE v.idVisita = ?;");
             $db -> getStatement() -> bind_param("i", $id);
 
