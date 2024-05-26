@@ -36,7 +36,7 @@
 
             // creazione statement
             $db = new database();
-            $db -> prepare('INSERT INTO `utente` (`username`, `nome`, `cognome`, `mail`, `passw`, `tipoUtente`) VALUES (?,?,?,?,?,"user")');
+            $db -> prepare('INSERT INTO `UTENTE` (`username`, `nome`, `cognome`, `mail`, `passw`, `tipoUtente`) VALUES (?,?,?,?,?,"user")');
             $db -> getStatement() -> bind_param("sssss", $username, $nome, $cognome, $mail, password_hash($passw, PASSWORD_DEFAULT)); 
 
             // prova a eseguire lo statement
@@ -107,12 +107,12 @@
 
 
             $db = new database();
-            $db -> prepare("SELECT b.idBiglietto, b.prezzo, b.dataValidita, v.idVisita, v.titolo, v.descrizione, v.dataInizio, v.dataFine, c.nome as nomeCategoria, s.codServizio, s.descrizione as nomeServizio, s.prezzoAPersona as prezzoServizio, codTransazione  FROM biglietto b
-            INNER JOIN visita v ON b.idVisita = v.idVisita
-            INNER JOIN categoria c ON b.codCategoria = c.codCategoria 
-            LEFT JOIN aggiunta a ON a.idBiglietto = b.idBiglietto
-            LEFT JOIN servizio s ON a.codServizio = s.codServizio
-            WHERE utente = ?
+            $db -> prepare("SELECT b.idBiglietto, b.prezzo, b.dataValidita, v.idVisita, v.titolo, v.descrizione, v.dataInizio, v.dataFine, c.nome as nomeCategoria, s.codServizio, s.descrizione as nomeServizio, s.prezzoAPersona as prezzoServizio, codTransazione  FROM BIGLIETTO b
+            INNER JOIN VISITA v ON b.idVisita = v.idVisita
+            INNER JOIN CATEGORIA c ON b.codCategoria = c.codCategoria 
+            LEFT JOIN AGGIUNTA a ON a.idBiglietto = b.idBiglietto
+            LEFT JOIN SERVIZIO s ON a.codServizio = s.codServizio
+            WHERE UTENTE = ?
             ORDER BY codTransazione ASC, b.idBiglietto ASC;");
             $db -> getStatement() -> bind_param("s", $username);
 
