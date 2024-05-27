@@ -117,15 +117,14 @@
             altrimenti manda alla form di signin
             */
             session_start();
-            var_dump(isset($_SESSION["evento"]));
 
             $id = $params[0];
             
             
             $user = $_SESSION["user"];
-            var_dump($user);
-            echo "dsfggrergerwggegerafgsergherasg";
+
             if(is_array($_SESSION["user"]) && self::log($user['username'],$user['passw'])){ //se il tipo e' loggato
+
                 $user = $_SESSION["user"];
                 $evento = eventoModel::getEventoById( $id );
                 $accessori = eventoModel::getAccessoriByEvento($id);
