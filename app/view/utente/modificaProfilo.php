@@ -101,7 +101,7 @@
         display: flex; 
         justify-content: flex-end;
       }
-      #field{
+      #field, #usr{
         width: 60%;
         display: inline-block;
         float: left;
@@ -135,10 +135,10 @@
                 <div class="card-body align-items-center text-center">
                   <div class="row d-flex align-items-center">
                     <div class="col">
-                      <label for="username" class="col-form-label mb-0">Username:</label>
+                      <label class="col-form-label mb-0">Username:</label>
                     </div>
                     <div class="col">
-                      <input class="ms-5" type="text" id="field" name="username" placeholder="<?php echo $user["username"];?>" required><br>
+                      <h2 id="usr" class="ms-5"><?php echo $user["username"];?></h2>
                     </div>
                   </div><!-- fine row username -->
                   <div class="row d-flex align-items-center">
