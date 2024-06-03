@@ -126,7 +126,7 @@
                               echo '<div class="row justify-content-center align-items-center">';
                               echo '<div class="col text-center">';
                               $prezzo = $evento["tariffa"] - $evento["tariffa"] * $CategoriaDisponibile["sconto"];
-                              echo '<h4>Biglietto, '.$CategoriaDisponibile["descrizione"].' €'.$prezzo.' x '.$CategoriaScelta["qta"].' </h4>';
+                              echo '<h4>'.$CategoriaDisponibile["descrizione"].' €'.$prezzo.' x '.$CategoriaScelta["qta"].' </h4>';
                               echo '</div>';
                               echo '<div class="col text-center">';
                               echo '<h6 class="ms-5">€ '.$prezzo*$CategoriaScelta["qta"].'</h6>';
@@ -157,7 +157,7 @@
                             echo '<div class="row justify-content-center align-items-center">';
                             echo '<div class="col text-center">';
                             $prezzo = $accessorioDisponibile["prezzoAPersona"];
-                            echo '<h4>Accessorio, '.$accessorioDisponibile["descrizione"].' € '.$prezzo.'</h4>';
+                            echo '<h4>'.$accessorioDisponibile["descrizione"].' € '.$prezzo.'</h4>';
                             echo '</div>';
                             echo '<div class="col text-center">';
                             echo '<h6 class="ms-5">€'.$prezzo.'</h6>';

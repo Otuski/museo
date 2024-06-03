@@ -185,7 +185,7 @@
 
             $categorieScelte = $_SESSION["categorie"];
             $accessoriScelti = $_SESSION['accessori'];
-            var_dump($accessori, $accessoriScelti);
+            //var_dump($accessori, $accessoriScelti);
             require_once "app/view/eventi/pagamento.php";
 
         }
