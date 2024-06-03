@@ -170,10 +170,10 @@
             die();
         }
 
-
-
-
-
+        public static function eventiFuturi(){
+            header("Location: /eventi/index"); //rimanda ad un'altro controller
+            die();
+        }
         
         // dopo c'e' la parte logica del sito
 
