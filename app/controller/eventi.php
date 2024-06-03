@@ -123,6 +123,8 @@
             
             $user = $_SESSION["user"];
 
+            $_SESSION['idVisita'] = $id;
+
             if(is_array($_SESSION["user"]) && self::log($user['username'],$user['passw'])){ //se il tipo e' loggato
 
                 $user = $_SESSION["user"];
@@ -140,19 +142,13 @@
 
         //parte logica
 
-        public function elaboraAcquistaBiglietto(){
+        public static function elaboraAcquistaBiglietto(){
             
             /*controlla se l'utente e' loggato e se ci sono accessori e categorie dentro post in input 
             se si fa vedere tutte
             altrimenti manda alla form di signin
             */
             session_start();
-            var_dump($_SESSION);
-            var_dump($_POST);
-
-            
-            
-            
 
             foreach ($_POST as $key => $value) {
                 $dato = explode('/', $key);
@@ -170,27 +166,24 @@
                 
             }
 
-            $_SESSION['AccessoriAcquistati'] = $accessori;
-            $_SESSION['CategorieAcquistate'] = $categorie;
+            $_SESSION['categorie'] = $categorie;
+            $_SESSION['accessori'] = $accessori;
 
-            header("Location: /eventi/inserisciCarta");
+            header("Location: /eventi/pagamento");
             die();
 
-            /*
-            session_start();
-            if(isset($_SESSION["user"]) && $_SESSION["user"] -> login()){ //se il tipo e' loggato
-                $user = $_SESSION["user"];
-                $evento = new eventoModel($idEvento);
-                $evento -> caricaDati();
-                $accessiori = $evento -> getAccessori();
-                $categorie = $evento -> getCategorie();
-                require_once "app/template/eventi/acquistaBiglietto.php";
-            }else{ //se non e' loggato manda alla pagina signin per verificare gli errori
-                header("Location: /utente/login");
-                die();
-            }
+        }
 
-            */
+        public static function pagamento(){
+            session_start();
+            $id = $_SESSION["idVisita"];
+
+            $evento = eventoModel::getEventoById( $id );
+            $accessori = eventoModel::getAccessoriByEvento($id);
+            $categorie = eventoModel::getCategorieByEvento($id);
+            var_dump($_SESSION["categorie"], $_SESSION['accessori'], $categorie);
+            require_once "app/view/eventi/pagamento.php";
+
         }
 
         public function inserisciCarta(){
@@ -214,6 +207,8 @@
 
 
         }
+
+
 
         //link vari
 

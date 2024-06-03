@@ -29,8 +29,6 @@
             if(isset($_SESSION['user']) ) {
                 $user = $_SESSION['user'];
                 $logged = self::log($user["username"], $user["passw"]);
-            } else {
-                session_destroy();
             }
             require_once "app/view/utente/login.php";
         }
@@ -133,6 +131,26 @@
                 die();
             }
         }
+        /*
+
+        public static function semplificaBiglietti($array){
+            $semplificato = array();
+            foreach ($array as $key => $value){
+                $precedente = $array[$key];
+                if($key == 0){}
+                else{
+
+                    if($array[$key]["codTransazione"] == $precedente["codTransazione"]){
+                        $semplificato[ $array[$key]["codTransazione"] ] = 
+                    }
+
+
+                    $precedente = $array[$key];
+                }
+            }
+
+        }
+        */
 
         //cambio di controller
         public static function homepage(){ //view dell'index

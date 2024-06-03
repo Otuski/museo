@@ -114,15 +114,23 @@
               <div class="card-body">
                 <h5 class="card-title" style="font-size:250%"><b>Biglietti:</b></h5>
                 <?php
-                  echo '<div class="row justify-content-center align-items-center">';
-                  echo '<div class="col text-center">';
-                  echo '<h4>Biglietto, €XX.XX x 2</h4>';
-                  echo '</div>';
-                  echo '<div class="col text-center">';
-                  echo '<h6 class="ms-5">€ XX.XX</h6>';
-                  echo '</div>';
-                  echo '</div><!-- fine row -->';
-                  echo '<br>';
+                  $totale = 0;
+
+                  foreach ($categorie as $key => $value) {
+                      if(is_string($_SESSION[ $value['codCategoria'] ])){
+
+                        echo '<div class="row justify-content-center align-items-center">';
+                        echo '<div class="col text-center">';
+                        echo '<h4>Biglietto, €'.$categorie[ $value['codCategoria'] ].' x 2</h4>';
+                        echo '</div>';
+                        echo '<div class="col text-center">';
+                        echo '<h6 class="ms-5">€ XX.XX</h6>';
+                        echo '</div>';
+                        echo '</div><!-- fine row -->';
+                        echo '<br>';
+
+                      }
+                  }
                 ?>
               </div>
             </div>
@@ -133,6 +141,23 @@
               <div class="card-body">
                 <h5 class="card-title" style="font-size:250%"><b>Accessori:</b></h5>
                 <?php
+                    foreach ($accessori as $key => $value) {
+                      if(is_string($_SESSION[ $value['codCategoria'] ])){
+
+                        echo '<div class="row justify-content-center align-items-center">';
+                        echo '<div class="col text-center">';
+                        echo '<h4>Biglietto, €'.$categorie[ $value['codCategoria'] ].' x 2</h4>';
+                        echo '</div>';
+                        echo '<div class="col text-center">';
+                        echo '<h6 class="ms-5">€ XX.XX</h6>';
+                        echo '</div>';
+                        echo '</div><!-- fine row -->';
+                        echo '<br>';
+
+                      }
+                  }
+
+
                   echo '<div class="row justify-content-center align-items-center">';
                   echo '<div class="col text-center">';
                   echo '<h4>Accessorio, €XX.XX x 2</h4>';

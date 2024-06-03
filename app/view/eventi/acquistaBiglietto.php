@@ -111,7 +111,7 @@
         <div class="col"></div>
         <div id="content" class="col-10">
           <div class="col d-flex justify-content-start">
-            <a href="dettagliEvento" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>
+            <?php echo '<a href="../dettagliEvento/'.$evento['idVisita'].'" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>?>'; ?>
           </div>
 
           <div id="center">
