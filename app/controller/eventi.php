@@ -154,10 +154,11 @@
                 $dato = explode('/', $key);
 
                 if($dato[0]=='categoria'){
-                    $categorie[$dato[1]] =$value;
+                    $categorie[$dato[1]]["codCategoria"] = (int) $dato[1];
+                    $categorie[$dato[1]]["qta"] = (int) $value;
 
                 }else if($dato[0]=='accessorio'){
-                    $accessori[] = $dato[1];
+                    $accessori[$dato[1]]["codServizio"] = (int) $dato[1];
 
                 }else{
                     //header('Location: /eventi/index');//rimanda agli eventi futuri
@@ -181,7 +182,10 @@
             $evento = eventoModel::getEventoById( $id );
             $accessori = eventoModel::getAccessoriByEvento($id);
             $categorie = eventoModel::getCategorieByEvento($id);
-            var_dump($_SESSION["categorie"], $_SESSION['accessori'], $categorie);
+
+            $categorieScelte = $_SESSION["categorie"];
+            $accessoriScelti = $_SESSION['accessori'];
+            var_dump($accessori, $accessoriScelti);
             require_once "app/view/eventi/pagamento.php";
 
         }
