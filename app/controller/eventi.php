@@ -190,27 +190,18 @@
 
         }
 
-        public function inserisciCarta(){
+        public static function inserisciCarta(){
             session_start();
-
-            //trasformo array in modo strano, nella riscrittura va modifica
-
-            $vecchieCategorie = $_SESSION['evento']['categorie']; 
-
-            var_dump($vecchieCategorie);
-            
-            foreach ( $vecchieCategorie as $key => $value) {
-                $categorieScelte[$vecchieCategorie[$key]['codCategoria']]= $vecchieCategorie[$key] ;
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
             }
-            
-            echo "<br><br>";
-            var_dump($categorieScelte);
-
-
-            require_once "app/template/eventi/inserisciCarta.php";
-
-
+            require_once "app/view/eventi/inserisciCarta.php";
         }
+
+        
 
 
 
@@ -255,6 +246,50 @@
             die();
         }
         
+
+        private static function testInsertTransazione($args){
+            $user = $args[0];
+            $numCarta = $args[1];
+
+            $result = eventoModel::insertTransizione($user, $numCarta);
+            var_dump($user,$numCarta, $result);
+        }
+
+        private static function testInsertBiglietto($args){ // http://localhost/eventi/testInsertBiglietto/12/2024-12-23/aaaaaaaa/2/5/1
+            var_dump($args);
+            $prezzo = $args[0];
+            $dataValidita = $args[1];
+            $utente = $args[2];
+            $idVisita = $args[3];
+            $codTransazione = $args[4];
+            $codCategoria = $args[5];
+
+            $result = eventoModel::insertBiglietto($prezzo, $dataValidita, $utente, $idVisita, $codTransazione, $codCategoria);
+            var_dump($prezzo, $dataValidita, $utente, $codTransazione, $codCategoria, $result);
+        }
+
+        private static function testInsertAccessorio($args){ // http://localhost/eventi/testInsertAccessorio/8/2 cambiare con valori a piacere
+            var_dump($args);
+            $idBiglietto = $args[0];
+            $codServizio = $args[1];
+
+            $result = eventoModel::insertAccessorio($idBiglietto, $codServizio);
+            var_dump($idBiglietto, $codServizio, $result);
+        }
+
+        private static function testInsertCarta($args){ // http://localhost/eventi/testInsertCarta/76597976/PPoldoo/Cognome/VIAS cambiare con valori a piacere
+            var_dump($args);
+            $numCarta = $args[0];
+            $nome = $args[1];
+            $cognome = $args[2];
+            $tipoCarta = $args[3];
+
+            $result = eventoModel::insertCarta($numCarta, $nome, $cognome, $tipoCarta);
+            var_dump($numCarta, $nome, $cognome, $tipoCarta, $result);
+        }
+        
+
+
         
 
     }

@@ -195,4 +195,102 @@
 
             return $result;
         }
+
+        public static function insertTransizione($utente, $numCarta){
+
+            $db = new database();
+            $db -> prepare("INSERT INTO TRANSAZIONE (`codTransazione`, `utente`, `numCarta`) VALUES (NULL, ?, ?);");
+            $db -> getStatement() -> bind_param("ss",$utente, $numCarta);
+
+            // prova a eseguire lo statement
+            if( !$db -> easyExecute()){//se non va la query manda via
+                $db -> close();
+                return false;
+            }
+
+            $result = $db -> getStatement() -> get_result();
+
+            if( $result){//se non trova la visita tramite l'id:
+                $db -> close();
+                return false;
+            }
+
+            $db -> close();
+
+            return true;
+            
+        }
+
+        public static function insertBiglietto($prezzo, $dataValidita, $utente, $idVisita, $codTransazione, $codCategoria){
+
+            $db = new database();
+            $db -> prepare("INSERT INTO BIGLIETTO (`idBiglietto`, `prezzo`, `dataValidita`, `utente`, `idVisita`, `codTransazione`, `codCategoria`) VALUES (NULL, ?, ?, ?, ?, ?, ?);");
+            $db -> getStatement() -> bind_param("issiii",$prezzo, $dataValidita, $utente, $idVisita, $codTransazione, $codCategoria);
+
+            // prova a eseguire lo statement
+            if( !$db -> easyExecute()){//se non va la query manda via
+                $db -> close();
+                return false;
+            }
+
+            $result = $db -> getStatement() -> get_result();
+
+            if( $result){//se non trova la visita tramite l'id:
+                $db -> close();
+                return false;
+            }
+
+            $db -> close();
+
+            return true;
+            
+        }
+
+        public static function insertAccessorio($idBiglietto, $codServizio){
+            $db = new database();
+            $db -> prepare("INSERT INTO AGGIUNTA (`codServizio`, `idBiglietto`) VALUES (?, ?);");
+            $db -> getStatement() -> bind_param("ii", $idBiglietto, $codServizio);
+
+            // prova a eseguire lo statement
+            if( !$db -> easyExecute()){//se non va la query manda via
+                $db -> close();
+                return false;
+            }
+
+            $result = $db -> getStatement() -> get_result();
+
+            if( $result){//se non trova la visita tramite l'id:
+                $db -> close();
+                return false;
+            }
+
+            $db -> close();
+
+            return true;
+        }
+
+        public static function insertCarta($numCarta, $nome, $cognome, $tipoCarta){
+            $db = new database();
+            $db -> prepare("INSERT INTO CARTA (`numCarta`, `nome`, `cognome`, `tipoCarta`) VALUES (?, ?, ?, ?)");
+            $db -> getStatement() -> bind_param("ssss", $numCarta, $nome, $cognome, $tipoCarta);
+
+            // prova a eseguire lo statement
+            if( !$db -> easyExecute()){//se non va la query manda via
+                $db -> close();
+                return false;
+            }
+
+            $result = $db -> getStatement() -> get_result();
+
+            if( $result){//se non trova la visita tramite l'id:
+                $db -> close();
+                return false;
+            }
+
+            $db -> close();
+
+            return true;
+        }
     }
+
+    

@@ -191,7 +191,7 @@
             </div>
             <!-- fine card totale -->
             <br><br>
-            <a href="#" class="btn btn-light btn-lg">Checkout</a>
+            <a href="inserisciCarta" class="btn btn-light btn-lg">Checkout</a>
 
           </div><!-- fine #center -->
 
