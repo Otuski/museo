@@ -121,7 +121,7 @@
           <div id="center">
             <h1 class="text-center"><b>Pagamento</b></h1>
             <br>
-            <form action="#" method="POST">
+            <form action="elaboraInserisciCarta" method="POST">
               <!-- card 01 -->
               <div class="card" style="width: 100%;">
                 <div class="card-body align-items-center text-center">

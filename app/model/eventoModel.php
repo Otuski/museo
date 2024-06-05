@@ -196,6 +196,54 @@
             return $result;
         }
 
+        public static function getLastTransizione(){
+
+            $db = new database();
+            $db -> prepare("SELECT * FROM TRANSAZIONE t
+            WHERE t.codTransazione >= all(SELECT codTransazione FROM TRANSAZIONE)
+            ");
+            $db -> getStatement() ;
+
+            // prova a eseguire lo statement
+            if( !$db -> easyExecute()){//se non va la query manda via
+                $db -> close();
+                return false;
+            }
+
+            $result = $db -> getStatement() -> get_result() -> fetch_all(MYSQLI_ASSOC);
+
+            if( (is_array($result)) && count($result) < 1){//se non trova la visita tramite l'id:
+                $db -> close();
+                return false;
+            }
+
+            return $result;
+        }
+
+        public static function getLastBiglietto(){
+
+            $db = new database();
+            $db -> prepare("SELECT * FROM BIGLIETTO b
+            WHERE b.idBiglietto >= all(SELECT idBiglietto FROM BIGLIETTO)
+            ");
+            $db -> getStatement() ;
+
+            // prova a eseguire lo statement
+            if( !$db -> easyExecute()){//se non va la query manda via
+                $db -> close();
+                return false;
+            }
+
+            $result = $db -> getStatement() -> get_result() -> fetch_all(MYSQLI_ASSOC);
+
+            if( (is_array($result)) && count($result) < 1){//se non trova la visita tramite l'id:
+                $db -> close();
+                return false;
+            }
+
+            return $result;
+        }
+
         public static function insertTransizione($utente, $numCarta){
 
             $db = new database();
@@ -249,7 +297,7 @@
         public static function insertAccessorio($idBiglietto, $codServizio){
             $db = new database();
             $db -> prepare("INSERT INTO AGGIUNTA (`codServizio`, `idBiglietto`) VALUES (?, ?);");
-            $db -> getStatement() -> bind_param("ii", $idBiglietto, $codServizio);
+            $db -> getStatement() -> bind_param("ii", $codServizio, $idBiglietto);
 
             // prova a eseguire lo statement
             if( !$db -> easyExecute()){//se non va la query manda via
