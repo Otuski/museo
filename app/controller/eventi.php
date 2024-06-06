@@ -56,17 +56,22 @@
             trova l'evento, le categorie ammesse e gli accessori disponibili nel db e li mostra 
             */
 
-            $id = $params[0];
-
-            $evento = eventoModel::getEventoById($id);
+            
 
             session_start();
+            //controllo login
             if(isset($_SESSION['user']) ) {
                 $user = $_SESSION['user'];
                 $logged = self::log($user["username"], $user["passw"]);
             } else {
                 session_destroy();
+                header('Location: /eventi/index');//rimanda agli eventi futuri
+                die();
             }
+
+            $id = $params[0];
+
+            $evento = eventoModel::getEventoById($id);
 
             if(strtotime($evento["dataInizio"]) > time() ){
                 $accessori = eventoModel::getAccessoriByEvento($id);
@@ -117,6 +122,15 @@
             altrimenti manda alla form di signin
             */
             session_start();
+            //controllo login
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+                header('Location: /utente/index');//rimanda agli eventi futuri
+                die();
+            }
 
             $id = $params[0];
             
@@ -149,6 +163,15 @@
             altrimenti manda alla form di signin
             */
             session_start();
+            //controllo login
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+                header('Location: /utente/index');//rimanda agli eventi futuri
+                die();
+            }
 
             foreach ($_POST as $key => $value) {
                 $dato = explode('/', $key);
@@ -178,8 +201,15 @@
 
         public static function pagamento(){
             session_start();
-
-            // manca da verificare il login
+            //controllo login
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+                header('Location: /utente/index');//rimanda agli eventi futuri
+                die();
+            }
             
             $id = $_SESSION["idVisita"];
 
@@ -197,13 +227,14 @@
         public static function inserisciCarta(){
 
             session_start();
-            // manca da verificare il login
-
+            //controllo login
             if(isset($_SESSION['user']) ) {
                 $user = $_SESSION['user'];
                 $logged = self::log($user["username"], $user["passw"]);
             } else {
                 session_destroy();
+                header('Location: /utente/index');//rimanda agli eventi futuri
+                die();
             }
             require_once "app/view/eventi/inserisciCarta.php";
         }
@@ -244,8 +275,15 @@
 
         public static function elaboraInserisciCarta(){
             session_start();
-
-            // manca da verificare il login
+            //controllo login
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+                header('Location: /utente/index');//rimanda agli eventi futuri
+                die();
+            }
 
             $id = $_SESSION["idVisita"];
             $user = $_SESSION["user"];
@@ -313,6 +351,16 @@
         }
 
         public static function buonaVisita(){
+            session_start();
+            //controllo login
+            if(isset($_SESSION['user']) ) {
+                $user = $_SESSION['user'];
+                $logged = self::log($user["username"], $user["passw"]);
+            } else {
+                session_destroy();
+                header('Location: /utente/index');//rimanda agli eventi futuri
+                die();
+            }
             require_once "app/view/eventi/buonaVisita.php";
         }
 

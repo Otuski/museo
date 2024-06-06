@@ -142,7 +142,8 @@
             <h1 class="text-center"><b>Buona visita</b></h1>
             <h3 class="text-center">L'acquisto è stato effettuato con successo,<br>ora puoi tornare alla homepage.</h3>
             <br><br>
-            <a href="#" class="btn btn-light btn-lg">Torna alla homepage</a>
+            <a href="homepage" class="btn btn-light btn-lg">Torna alla homepage</a>
+            <a href="iMieiBiglietti" class="btn btn-light btn-lg">Vai ai biglietti</a>
           </div>
           <!-- fine #center -->
 
