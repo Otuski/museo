@@ -124,6 +124,7 @@
             if(is_array($user) && self::log($user["username"], $user["passw"]) ){//se il tipo e' loggato mostra form
                 $user = $_SESSION["user"];
                 $biglietti =  userModel::getBigliettiByUtente($user["username"]);
+                $accessori = userModel::getAccessoriByUtente($user["username"]);
                 $logged = self::log($user["username"], $user["passw"]);
                 require_once "app/view/utente/iMieiBiglietti.php";
             }else{ //se non e' loggato manda alla pagina login per verificare gli errori

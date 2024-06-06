@@ -309,14 +309,6 @@
                 }
             }
 
-            echo "idLastBiglietto: ",var_dump($lastBiglietto);
-            echo '<br>';
-            echo '<br>';
-
-
-
-
-
             header("Location: /eventi/buonaVisita");
         }
 

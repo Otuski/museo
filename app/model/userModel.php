@@ -107,13 +107,43 @@
 
 
             $db = new database();
-            $db -> prepare("SELECT b.idBiglietto, b.prezzo, b.dataValidita, v.idVisita, v.titolo, v.descrizione, v.dataInizio, v.dataFine, c.nome as nomeCategoria, s.codServizio, s.descrizione as nomeServizio, s.prezzoAPersona as prezzoServizio, codTransazione  FROM BIGLIETTO b
-            INNER JOIN VISITA v ON b.idVisita = v.idVisita
-            INNER JOIN CATEGORIA c ON b.codCategoria = c.codCategoria 
-            LEFT JOIN AGGIUNTA a ON a.idBiglietto = b.idBiglietto
-            LEFT JOIN SERVIZIO s ON a.codServizio = s.codServizio
-            WHERE UTENTE = ?
-            ORDER BY codTransazione ASC, b.idBiglietto ASC;");
+            $db -> prepare("SELECT t.codTransazione, b.utente, c.nome, v.idVisita, v.titolo, v.dataInizio, v.dataFine, v.tariffa - v.tariffa * c.sconto as Prezzo, COUNT(b.idBiglietto) as NumeroBiglietti FROM BIGLIETTO b
+            INNER JOIN TRANSAZIONE t ON t.codTransazione = b.codTransazione
+            INNER JOIN CATEGORIA c ON c.codCategoria = b.codCategoria
+            INNER JOIN VISITA v ON v.idVisita =b.idVisita
+            WHERE b.utente = ?
+            GROUP BY b.codTransazione, b.codCategoria;");
+            $db -> getStatement() -> bind_param("s", $username);
+
+            if( !$db -> easyExecute()){//se non va la query manda via
+                $db -> close();
+                return false;
+            }
+
+
+            $result = $db -> getStatement() -> get_result() -> fetch_all(MYSQLI_ASSOC) ;
+
+            if( (is_array($result)) && count($result) < 1){//se non trova l'username
+                $db -> close();
+                return false;
+            }
+
+            $db -> close();
+
+            return $result;
+        }
+
+        public static function getAccessoriByUtente($username,){
+            
+
+
+            $db = new database();
+            $db -> prepare("SELECT *
+            FROM TRANSAZIONE t 
+            INNER JOIN BIGLIETTO b ON t.codTransazione = b.codTransazione
+            INNER JOIN AGGIUNTA a ON a.idBiglietto = b.idBiglietto
+            INNER JOIN SERVIZIO s ON s.codServizio = a.codServizio
+            WHERE b.utente = ?;");
             $db -> getStatement() -> bind_param("s", $username);
 
             if( !$db -> easyExecute()){//se non va la query manda via
@@ -135,6 +165,3 @@
         }
      
     }
-
-                
-                
