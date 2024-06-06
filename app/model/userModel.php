@@ -133,7 +133,7 @@
             return $result;
         }
 
-        public static function getAccessoriByUtente($username,){
+        public static function getAccessoriByUtente($username){
             
 
 

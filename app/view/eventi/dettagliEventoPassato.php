@@ -189,7 +189,7 @@
                     echo '<div class="container p-4 pb-0">
                             <section style="display:flex; justify-content:center; align-items:center;">
                             <span>Crea il tuo account:</span>
-                            <a href="signin" method="post" style="margin-left: 3%;">
+                            <a href="../signin" method="post" style="margin-left: 3%;">
                                 <button data-mdb-ripple-init type="button" class="btn btn-outline-light btn-rounded">Registrati!</button>
                             </a>
                             </section>

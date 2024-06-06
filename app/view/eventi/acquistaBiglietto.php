@@ -161,7 +161,8 @@
                     echo '<h4 class="text-center">'.$categoria['descrizione'].'</h4>';
                     echo '</div>';
                     echo '<div class="col">';
-                    echo '<label for="categoria/'.$categoria['codCategoria'].'" class="col-form-label mb-0" style="font-size:160%">€ '.$evento['tariffa']-($evento['tariffa']*$categoria['sconto']).'</label>';
+                    $prezzo = $evento['tariffa']-($evento['tariffa']*$categoria['sconto']);
+                    echo '<label for="categoria/'.$categoria['codCategoria'].'" class="col-form-label mb-0" style="font-size:160%">€ '.$prezzo.'</label>';
                     echo '<input class="ms-5" type="number" id="quantity" name="categoria/'.$categoria['codCategoria'].'" min="0" required">';
                     echo '</div>';
                     echo '</div><!-- fine row -->';

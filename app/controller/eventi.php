@@ -59,15 +59,6 @@
             
 
             session_start();
-            //controllo login
-            if(isset($_SESSION['user']) ) {
-                $user = $_SESSION['user'];
-                $logged = self::log($user["username"], $user["passw"]);
-            } else {
-                session_destroy();
-                header('Location: /eventi/index');//rimanda agli eventi futuri
-                die();
-            }
 
             $id = $params[0];
 
@@ -406,6 +397,11 @@
         //cambio controller
         public static function login(){ 
             header("Location: /utente/login"); //rimanda ad un'altro controller
+            die();
+        }
+
+        public static function signin(){ 
+            header("Location: /utente/signin"); //rimanda ad un'altro controller
             die();
         }
 
