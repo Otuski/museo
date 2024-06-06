@@ -173,12 +173,17 @@
                 die();
             }
 
+            
+
+            $bigliettoMinimo = 0;
+
             foreach ($_POST as $key => $value) {
                 $dato = explode('/', $key);
 
                 if($dato[0]=='categoria'){
                     $categorie[$dato[1]]["codCategoria"] = (int) $dato[1];
                     $categorie[$dato[1]]["qta"] = (int) $value;
+                    $bigliettoMinimo += (int) $value;
 
                 }else if($dato[0]=='accessorio'){
                     $accessori[$dato[1]]["codServizio"] = (int) $dato[1];
@@ -193,6 +198,12 @@
             $_SESSION['categorie'] = $categorie;
             $_SESSION['accessori'] = $accessori;
             $_SESSION['dataBiglietto'] = $_POST["dataBiglietto"];
+
+            if($bigliettoMinimo == 0){
+                $_SESSION["error"] = "compra almeno un biglietto";
+                header('Location: /eventi/acquistaBiglietto/'.$_SESSION['idVisita']);//rimanda agli eventi futuri
+                die(); 
+            }
 
             header("Location: /eventi/pagamento");
             die();
@@ -219,7 +230,7 @@
 
             $categorieScelte = $_SESSION["categorie"];
             $accessoriScelti = $_SESSION['accessori'];
-            var_dump($accessori, $accessoriScelti, $categorie, $categorieScelte);
+            //var_dump($accessori, $accessoriScelti, $categorie, $categorieScelte);
             require_once "app/view/eventi/pagamento.php";
 
         }
@@ -236,6 +247,11 @@
                 header('Location: /utente/index');//rimanda agli eventi futuri
                 die();
             }
+
+            //inizializza variabili per il pulsante indietro
+            $id = $_SESSION["idVisita"];
+            $evento = eventoModel::getEventoById( $id );
+            
             require_once "app/view/eventi/inserisciCarta.php";
         }
 

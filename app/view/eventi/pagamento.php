@@ -103,7 +103,7 @@
         <div class="col"></div>
         <div id="content" class="col-10">
           <div class="col d-flex justify-content-start">
-            <?php echo'<a href="dettagliEvento/'.$evento["idVisita"].'" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>'; ?> 
+            <?php echo'<a href="acquistaBiglietto/'.$evento["idVisita"].'" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>'; ?> 
           </div>
 
           <div id="center">
@@ -144,12 +144,16 @@
             </div>
             <!-- fine card biglietti -->
             <br>
-            <!-- card servizi -->
-            <div class="card" style="width: 100%;">
-              <div class="card-body">
-                <h5 class="card-title" style="font-size:250%"><b>Accessori:</b></h5>
-                <?php           
-                    foreach ($accessori as $accessorioDisponibile) {
+
+            <?php           
+
+                    if(is_array($accessoriScelti)){
+            echo '<!-- card servizi -->
+                          <div class="card" style="width: 100%;">
+                            <div class="card-body">
+                              <h5 class="card-title" style="font-size:250%"><b>Accessori:</b></h5>';
+                
+                      foreach ($accessori as $accessorioDisponibile) {
 
                         foreach ($accessoriScelti as $accessorioScelto) {
                           if(isset($accessorioScelto["codServizio"], $accessorioDisponibile["codServizio"]) 
@@ -167,13 +171,13 @@
                             $totale+=(float)$prezzo;
                           }
                         }
-                  }
+                      }
 
-
-                  
+                      echo '</div>
+                      </div>';
+                    }
                 ?>
-              </div>
-            </div>
+              
             <!-- fine card servizi  -->
             <br>
             <!-- card totale -->

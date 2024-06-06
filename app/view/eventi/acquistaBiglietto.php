@@ -111,29 +111,40 @@
         <div class="col"></div>
         <div id="content" class="col-10">
           <div class="col d-flex justify-content-start">
-            <?php echo '<a href="../dettagliEvento/'.$evento['idVisita'].'" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>?>'; ?>
+              <a href="../eventiFuturi" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>
           </div>
 
           <div id="center">
             <h1 class="text-center"><b>Prenota la tua visita</b></h1>
 
-            <?php
-		        echo '<h5 style="font-size:200%"><b>'.$evento['titolo'].'</b></h5><br>';   
-                if(isset($_SESSION['error'])){
-                    echo ''.$_SESSION['error'].'';
-                }else{
-                    unset($_SESSION['error']);
-                }
+            <?php 
+              echo '<h5 style="font-size:200%"><b>'.$evento['titolo'].'</b></h5><br>';  
+
+              if(isset($_SESSION['error'])){
+                echo '<!-- card 00 -->
+                  <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="font-size:250%"><b>Errore:</b></h5>
+                      <h5 class="text-center"">'.$_SESSION['error'].'</h5>
+                    </div>
+                  </div>
+                <!-- fine card 00 -->
+                <br>';
+              }
+              
+              unset($_SESSION['error']);
+              
             ?>
 
             <form action="../elaboraAcquistaBiglietto" method="POST">
 
+           
               <!-- card 00 -->
               <div class="card" style="width: 100%;">
                 <div class="card-body">
                   <h5 class="card-title" style="font-size:250%"><b>Data:</b></h5>
                   <br>
-                  <input type="date" id="data" name="dataBiglietto">
+                  <input type="date" id="data" name="dataBiglietto" required <?php echo 'min="'.$evento['dataInizio'].'" max="'.$evento['dataFine'].'"';?> >
                 </div>
               </div>
               <!-- fine card 00 -->
@@ -151,7 +162,7 @@
                     echo '</div>';
                     echo '<div class="col">';
                     echo '<label for="categoria/'.$categoria['codCategoria'].'" class="col-form-label mb-0" style="font-size:160%">€ '.$evento['tariffa']-($evento['tariffa']*$categoria['sconto']).'</label>';
-                    echo '<input class="ms-5" type="number" id="quantity" name="categoria/'.$categoria['codCategoria'].'" min="0" max="10"">';
+                    echo '<input class="ms-5" type="number" id="quantity" name="categoria/'.$categoria['codCategoria'].'" min="0" required">';
                     echo '</div>';
                     echo '</div><!-- fine row -->';
                     echo 'Documento necessario: '.$categoria['tipoDocumento'].'<br>';

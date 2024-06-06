@@ -115,7 +115,7 @@
         <div class="col"></div>
         <div id="content" class="col-10">
           <div class="col d-flex justify-content-start">
-            <a href="dettagliEvento" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>
+          <?php echo'<a href="acquistaBiglietto/'.$evento["idVisita"].'" id="bttn" class="btn btn-outline-light btn-rounded btn-lg">Indietro</a>'; ?>
           </div>
 
           <div id="center">
@@ -132,7 +132,7 @@
                       <label for="nome" class="col-form-label mb-0">Nome:</label>
                     </div>
                     <div class="col">
-                      <input class="ms-5" type="textfield" id="field" name="nome"><br>
+                      <input class="ms-5" type="textfield" id="field" name="nome" required><br>
                     </div>
                   </div><!-- fine row nome -->
                   <div class="row d-flex align-items-center">
@@ -140,7 +140,7 @@
                       <label for="cognome" class="col-form-label mb-0">Cognome:</label>
                     </div>
                     <div class="col">
-                      <input class="ms-5" type="textfield" id="field" name="cognome"><br>
+                      <input class="ms-5" type="textfield" id="field" name="cognome" required><br>
                     </div>
                   </div><!-- fine row cognome -->
                   <div class="row d-flex align-items-center">
@@ -148,7 +148,7 @@
                       <label for="numCarta" class="col-form-label mb-0">Numero di carta:</label>
                     </div>
                     <div class="col">
-                      <input class="ms-5" type="tel" id="field" name="numCarta" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx"><br>
+                      <input class="ms-5" type="tel" id="field" name="numCarta" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" required><br>
                     </div>
                   </div><!-- fine row numCarta -->
                   <div class="row d-flex align-items-center">
@@ -156,7 +156,7 @@
                       <label for="dataScadenza" class="col-form-label mb-0">Data di scadenza:</label>
                     </div>
                     <div class="col">
-                      <input class="ms-5" type="month" id="fieldSPECIAL" name="dataScadenza"><br>
+                      <input class="ms-5" type="month" id="fieldSPECIAL" name="dataScadenza" required><br>
                     </div>
                   </div><!-- fine row scadenza -->   
                   <div class="row d-flex align-items-center">
@@ -164,7 +164,7 @@
                       <label for="cvv" class="col-form-label mb-0">CVV:</label>
                     </div>
                     <div class="col">
-                      <input class="ms-5" id="fieldSPECIAL" type="number" max="999" pattern="([0-9]|[0-9]|[0-9])" name="cvv"/>
+                      <input class="ms-5" id="fieldSPECIAL" type="number" max="999" pattern="([0-9]|[0-9]|[0-9])" name="cvv" required>
                     </div>
                   </div><!-- fine row cvv -->
                 </div><!-- fine card-body -->
