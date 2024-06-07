@@ -45,9 +45,7 @@
             if(isset($_SESSION['user']) ) {
                 $user = $_SESSION['user'];
                 $logged = self::log($user["username"], $user["passw"]);
-            } else {
-                session_destroy();
-            }
+            } 
             require_once "app/view/utente/signin.php";
         }
 
@@ -81,7 +79,7 @@
                 header("Location: /utente/login");
                 die();
             }
-            var_dump($user);
+            //var_dump($user);
 
         }
 
@@ -246,18 +244,19 @@
                 //controlla se si puo' mettere e se lo fa lo logga
                 if(is_array($user)){
                     $_SESSION["error"] = "username gia' in uso";
-                    header("Location: utente/profilo"); //redirect alla pagina di login con la form
+                    header("Location: utente/signin");
                     die();
                 } else { //se valori errati rimanda alla login
                     userModel::insertUtente($username,$nome,$cognome,$mail,$password);
                     $_SESSION["user"] = userModel::getUserByUsername($username);
-                    header("Location: utente/signin"); //redirect alla pagina di login con la form
+                    header("Location: utente/profilo");
                     die();
                 }
             } else {//se non ci sono stati i post inviati dal form  rimanda alla login
-                header("Location: utente/signin"); //redirect alla pagina di login con la form
-                die();
+                header("Location: utente/signin");
+                die();//manda a signin
             }
+            
         }
 
         /**  se ci sono gli input tramite post e il login
