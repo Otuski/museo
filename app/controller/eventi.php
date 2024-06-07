@@ -246,7 +246,7 @@
             require_once "app/view/eventi/inserisciCarta.php";
         }
 
-        public static function testElaboraInserisciCarta(){
+        private static function testElaboraInserisciCarta(){
             session_start();
 
             $id = $_SESSION["idVisita"];
@@ -355,6 +355,7 @@
             }
 
             header("Location: /eventi/buonaVisita");
+            die();
         }
 
         public static function buonaVisita(){
