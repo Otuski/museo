@@ -129,6 +129,22 @@
           <div id="center">
             <h1 class="text-center"><b>Aggiorna password</b></h1>
             <br>
+            <?php
+                  if(isset($_SESSION['error'])){
+                    echo '<!-- card 00 -->
+                      <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                          <h5 class="card-title" style="font-size:250%"><b>Errore:</b></h5>
+                          <h5 class="text-center"">'.$_SESSION['error'].'</h5>
+                        </div>
+                      </div>
+                    <!-- fine card 00 -->
+                    <br>';
+                  }
+
+                  unset($_SESSION['error']);
+
+              ?>
             <form action="elaboraModificaPassword" method="POST">
               <!-- card 01 -->
               <div class="card" style="width: 100%;">
